@@ -15,9 +15,29 @@ class CategoriesController extends Controller
     public function index(Request $request)
     {
 
+// Category টেবিল থেকে শুধু
+// ✔ id
+// ✔ name
+// ✔ type
 
-        $categories = Category::select(['id', 'name', 'type']);;
+// ফিল্ডগুলো select করো।
+
+        $categories = Category::select(['id', 'name', 'type']);
+
+        // AJAX Request এসেছে কি না চেক করা
         if($request->ajax()){
+
+// এটাই DataTables কে JSON ডেটা পাঠায়।
+
+// এই ডেটা table-এ চলে যায়:
+
+// id column
+
+// name column
+
+// type column
+
+
             return DataTables::of($categories)->make(true);
 
         }
