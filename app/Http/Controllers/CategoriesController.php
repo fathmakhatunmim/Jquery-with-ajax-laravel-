@@ -38,7 +38,15 @@ class CategoriesController extends Controller
 // type column
 
 
-            return DataTables::of($categories)->make(true);
+          return DataTables::of($categories)
+    ->addColumn('action', function($row) {
+        return '<a href="javascript:void(0)" class=" btn  btn-info btn-sm editButton" data-id="'.$row->id.'">Edit</a> 
+
+        <a href="javascript:void(0)" class="btn btn-danger btn-sm editButton" data-id="'.$row->id.'">Delete</a>';
+    })
+    ->rawColumns(['action'])
+    ->make(true);
+
 
         }
          return view('categories.index'); // Blade view
@@ -57,7 +65,29 @@ class CategoriesController extends Controller
      */
     public function store(Request $request)
     {
-        // return $request->all();
+           if($request->category_id){
+
+           $category= Category::find($request->category_id);
+
+
+           if(!$category){
+            abort(404);
+           }
+
+
+           $category->update([
+             'name' => $request->name,
+             'type'=>$request->type
+           ]);
+            return response()->json([
+            'success'=>'categories update successfully'
+            ],200);//200 update code
+           }
+
+
+
+           else{
+              // return $request->all();
         $request->validate([
     'name' => 'required|string',
     'type' => 'required|string', 
@@ -70,7 +100,10 @@ class CategoriesController extends Controller
         ]);
         return response()->json([
             'success'=>'categories saved successfully'
-        ],201);//201 success code
+        ],201);//201 create code
+
+
+           }
 
 
     }
@@ -88,7 +121,12 @@ class CategoriesController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        // return $id;
+        $category=Category::find($id);
+        if(!$category){
+            abort(404);
+        }
+        return $category;
     }
 
     /**

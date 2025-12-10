@@ -59,9 +59,20 @@
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
+
+                   {{-- edit --}}
+                   <input type="hidden" name="category_id" id="category_id">
+
+
+
+
+
+
+
+
                         <div class="from-group mb-3">
                             <label for="name">Name</label>
-                            <input type="text" name="name" class="form-control">
+                            <input type="text" name="name" id="name" class="form-control">
                             <span id="nameError" class="text-danger error-message"></span>
                         </div>
 
@@ -93,12 +104,12 @@
             <a href="" class="btn btn-success mb-3" data-bs-toggle="modal" data-bs-target="#exampleModal">Add
                 Category</a>
             <table class="table table-white table-striped w-100" id="category-table">
-                <thead >
+                <thead>
                     <tr>
                         <th>#</th>
                         <th>Name</th>
                         <th>type</th>
-                        {{-- <th>Action</th> --}}
+                        <th>Action</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -134,7 +145,7 @@
 
 
 
-            $('#category-table').DataTable({
+          $table=$('#category-table').DataTable({
 
                 // এটি HTML table → DataTable বানায়।
 
@@ -186,6 +197,12 @@
                     {
                         data: 'type'
                     },
+                    {
+                        data: 'action',
+                        name: 'action',
+                        orderable: false,
+                        searchable: false
+                    },
                     // {data:'action'},
                     // Server থেকে যে JSON আসবে, তার কোন ফিল্ড কোন column-এ দেখাবে।
 
@@ -200,7 +217,16 @@
             $('#model-title').html('Create Category');
             $('#savebtn').html('Save categories');
 
-// এই functionটি Save বাটনে ক্লিক করলে চালু হবে।
+           
+
+
+
+
+
+
+
+
+            // এই functionটি Save বাটনে ক্লিক করলে চালু হবে।
             $('#savebtn').click(function() {
 
                 $('.error-massage').html('');
@@ -228,13 +254,16 @@
                     success: function(response) {
                         // console.log(response.success);
 
-
-
+                        $table.ajax.reload();
+// modal hide
 
                         if (response.success) {
                             swal("Success", response.success, "success");
+                           var myModalEl = document.getElementById('exampleModal');
+var modal = bootstrap.Modal.getInstance(myModalEl); // Returns existing instance
+modal.hide();
                         }
-                        $('#exampleModal').modal('hide'); // modal hide
+                        
                     },
                     error: function(error) {
                         //    console.log("Error");
@@ -265,6 +294,65 @@
 
 
             });
+
+            $('body').on('click', '.editButton', function() {
+                // console.log('clicked');
+                var id = $(this).data('id');
+                // console.log(id)
+                $.ajax({
+                    url: '/categories/' + id + '/edit',
+                    method: 'GET',
+                    success: function(response) {
+                        // console.log(response);
+
+
+                        $('#exampleModal').modal('show');
+                        $('#model-title').html('Edit  Category');
+                        $('#savebtn').html('update categories');
+                        $('#name').val(response.name);
+                         $('#category_id').val(response.id);
+
+
+
+
+
+
+
+                        // $('#type').val(response.type);
+
+
+var type=capitalizeFirstLetter(response.type);
+
+//jquery append option to select kore add korlam
+                       // Source - https://stackoverflow.com/a
+// Posted by szpapas, modified by community. See post 'Timeline' for change history
+// Retrieved 2025-12-10, License - CC BY-SA 3.0
+
+$('#type').empty().append('<option value="'+response.type+'">'+type+'</option>').selectmenu('refresh');
+
+
+
+
+
+
+
+
+
+
+
+
+                    },
+                    error: function(error) {
+                        console.log(error);
+                    }
+                });
+
+            });
+function capitalizeFirstLetter(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+}
+
+
 
 
         });

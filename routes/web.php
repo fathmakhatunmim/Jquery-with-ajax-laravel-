@@ -13,3 +13,5 @@ Route::get('/categories/index', [CategoriesController::class, 'index'])->name('c
 Route::get('/categories/create', [CategoriesController::class, 'create'])->name('categories.create');
 
 Route::POST('/categories/store', [CategoriesController::class, 'store'])->name('categories.store');
+
+Route::get('/categories/{id}/edit', [CategoriesController::class, 'edit'])->name('categories.edit');
