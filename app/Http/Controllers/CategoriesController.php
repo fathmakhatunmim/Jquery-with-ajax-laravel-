@@ -65,7 +65,7 @@ class CategoriesController extends Controller
      */
     public function store(Request $request)
     {
-           if($request->category_id){
+           if($request->category_id != null){
 
            $category= Category::find($request->category_id);
 

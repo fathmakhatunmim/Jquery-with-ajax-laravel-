@@ -101,7 +101,7 @@
     <div class="row">
         <div class="col-md-6 offset-3" style="margin-top:100px">
 
-            <a href="" class="btn btn-success mb-3" data-bs-toggle="modal" data-bs-target="#exampleModal">Add
+            <a href="" class="btn btn-success mb-3" data-bs-toggle="modal" data-bs-target="#exampleModal" id="add_category">Add
                 Category</a>
             <table class="table table-white table-striped w-100" id="category-table">
                 <thead>
@@ -255,6 +255,9 @@
                         // console.log(response.success);
 
                         $table.ajax.reload();
+                        $('#name').val('');
+                        $('#type').val('');
+                        $('#category_id').val('');
 // modal hide
 
                         if (response.success) {
@@ -348,6 +351,25 @@ $('#type').empty().append('<option value="'+response.type+'">'+type+'</option>')
                 });
 
             });
+
+           $('#add_category').click(function(){
+
+              $('#model-title').html('Create Category');
+            $('#savebtn').html('Save categories');
+
+
+           });
+
+
+
+
+
+
+
+
+
+
+
 function capitalizeFirstLetter(string) {
     return string.charAt(0).toUpperCase() + string.slice(1);
 }
