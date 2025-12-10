@@ -15,3 +15,5 @@ Route::get('/categories/create', [CategoriesController::class, 'create'])->name(
 Route::POST('/categories/store', [CategoriesController::class, 'store'])->name('categories.store');
 
 Route::get('/categories/{id}/edit', [CategoriesController::class, 'edit'])->name('categories.edit');
+
+Route::delete('/categories/{id}/destroy', [CategoriesController::class, 'destroy'])->name('categories.destroy');

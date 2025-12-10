@@ -39,11 +39,13 @@ class CategoriesController extends Controller
 
 
           return DataTables::of($categories)
+     ->addIndexColumn() 
     ->addColumn('action', function($row) {
         return '<a href="javascript:void(0)" class=" btn  btn-info btn-sm editButton" data-id="'.$row->id.'">Edit</a> 
 
-        <a href="javascript:void(0)" class="btn btn-danger btn-sm editButton" data-id="'.$row->id.'">Delete</a>';
+        <a href="javascript:void(0)" class="btn btn-danger btn-sm deleteButton" data-id="'.$row->id.'">Delete</a>';
     })
+     
     ->rawColumns(['action'])
     ->make(true);
 
@@ -141,7 +143,18 @@ class CategoriesController extends Controller
      * Remove the specified resource from storage.
      */
     public function destroy(string $id)
-    {
-        //
+{
+    $category = Category::find($id);
+
+    if(!$category){
+        return response()->json(['error'=>'Category not found'],404);
     }
+
+    $category->delete();
+
+    return response()->json([
+        'success'=>'Category deleted successfully'
+    ],200); // 200 OK for delete
+}
+
 }

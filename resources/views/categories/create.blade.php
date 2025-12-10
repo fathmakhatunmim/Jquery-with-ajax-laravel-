@@ -78,12 +78,16 @@
 
                         <div class="from-group mb-3">
                             <label for="category">category</label>
-                            <select name="type" id="type" class="form-control">
-                                <option disabled selected>choose option</option>
-                                <option value="electronic">Electronic</option>
+<select name="type" id="type" class="form-control">
+    <option disabled selected>choose option</option>
+  <option value="eee">EEE</option>
+        <option value="cse">CSE</option>
+        <option value="mechanical">Mechanical</option>
+        <option value="civil">Civil</option>
+        <option value="archi">Architecture</option>
 
-                            </select>
-                            <span class="text-danger error-message" id="typeError"></span>
+    </select>
+<span class="text-danger error-message" id="typeError"></span>
                         </div>
 
 
@@ -188,7 +192,12 @@
 
                 // এখন Laravel controller এ index() মেথড
                 // JSON হিসাবে ডেটা return করবে।
-                columns: [{
+                columns: [
+                    
+                // { data: 'DT_RowIndex', name: 'DT_RowIndex', orderable: false, searchable: false },
+
+                    
+                    {
                         data: 'id'
                     },
                     {
@@ -309,11 +318,12 @@ modal.hide();
                         // console.log(response);
 
 
-                        $('#exampleModal').modal('show');
-                        $('#model-title').html('Edit  Category');
-                        $('#savebtn').html('update categories');
-                        $('#name').val(response.name);
-                         $('#category_id').val(response.id);
+         $('#exampleModal').modal('show');
+        $('#model-title').html('Edit  Category');
+        $('#savebtn').html('update categories');
+        $('#name').val(response.name);
+         $('#category_id').val(response.id);
+         $('#type').val(response.type); 
 
 
 
@@ -331,9 +341,11 @@ var type=capitalizeFirstLetter(response.type);
 // Posted by szpapas, modified by community. See post 'Timeline' for change history
 // Retrieved 2025-12-10, License - CC BY-SA 3.0
 
-$('#type').empty().append('<option value="'+response.type+'">'+type+'</option>').selectmenu('refresh');
+// $('#type').empty().append('<option value="'+response.type+'">'+type+'</option>').selectmenu('refresh');
 
+// empty dauya te sob option muche jachilo
 
+$('#type').append('<option value="'+response.type+'">'+type+'</option>').selectmenu('refresh');
 
 
 
@@ -351,6 +363,40 @@ $('#type').empty().append('<option value="'+response.type+'">'+type+'</option>')
                 });
 
             });
+
+
+$('body').on('click', '.deleteButton', function() {
+    var id = $(this).data('id'); 
+        
+                 $.ajax({
+    url: '/categories/' + id + '/destroy', // match the route
+    method: 'DELETE',
+    success: function(response) {
+        swal("Success", response.success, "success");
+        $table.ajax.reload();
+    },
+    error: function(error) {
+        console.log(error);
+    }
+                });
+
+ });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
            $('#add_category').click(function(){
 
