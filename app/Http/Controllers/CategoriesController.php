@@ -85,9 +85,6 @@ class CategoriesController extends Controller
             'success'=>'categories update successfully'
             ],200);//200 update code
            }
-
-
-
            else{
               // return $request->all();
         $request->validate([

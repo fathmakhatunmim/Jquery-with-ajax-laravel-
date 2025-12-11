@@ -7,7 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>crate categories</title>
+    <title>crate categories</title>0
 
     {{-- boostrap --}}
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
@@ -42,13 +42,8 @@
 <body>
 
     {{-- modal --}}
-
-
-
     <!-- Button trigger modal -->
-
-
-    <!-- Modal -->
+  <!-- Modal -->
     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <form id="ajaxform" method="POST">
 
@@ -60,14 +55,8 @@
                     </div>
                     <div class="modal-body">
 
-                   {{-- edit --}}
-                   <input type="hidden" name="category_id" id="category_id">
-
-
-
-
-
-
+                        {{-- edit --}}
+                        <input type="hidden" name="category_id" id="category_id">
 
 
                         <div class="from-group mb-3">
@@ -78,16 +67,16 @@
 
                         <div class="from-group mb-3">
                             <label for="category">category</label>
-<select name="type" id="type" class="form-control">
-    <option disabled selected>choose option</option>
-  <option value="eee">EEE</option>
-        <option value="cse">CSE</option>
-        <option value="mechanical">Mechanical</option>
-        <option value="civil">Civil</option>
-        <option value="archi">Architecture</option>
+                            <select name="type" id="type" class="form-control">
+                                <option disabled selected>choose option</option>
+                                <option value="eee">EEE</option>
+                                <option value="cse">CSE</option>
+                                <option value="mechanical">Mechanical</option>
+                                <option value="civil">Civil</option>
+                                <option value="archi">Architecture</option>
 
-    </select>
-<span class="text-danger error-message" id="typeError"></span>
+                            </select>
+                            <span class="text-danger error-message" id="typeError"></span>
                         </div>
 
 
@@ -105,7 +94,8 @@
     <div class="row">
         <div class="col-md-6 offset-3" style="margin-top:100px">
 
-            <a href="" class="btn btn-success mb-3" data-bs-toggle="modal" data-bs-target="#exampleModal" id="add_category">Add
+            <a href="" class="btn btn-success mb-3" data-bs-toggle="modal" data-bs-target="#exampleModal"
+                id="add_category">Add
                 Category</a>
             <table class="table table-white table-striped w-100" id="category-table">
                 <thead>
@@ -124,13 +114,7 @@
 
         {{-- table --}}
 
-
-
-
     </div>
-
-
-
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">
     </script>
@@ -146,10 +130,7 @@
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 }
             });
-
-
-
-          $table=$('#category-table').DataTable({
+            $table = $('#category-table').DataTable({
 
                 // এটি HTML table → DataTable বানায়।
 
@@ -158,19 +139,11 @@
                 // ✔ Pagination হবে
                 // ✔ Sorting হবে
                 // ✔ Ajax দিয়ে data লোড হবে
-
-
-
-
                 processing: true,
 
-                //             DataTables যখন ডেটা লোড করবে, তখন
+                // DataTables যখন ডেটা লোড করবে, তখন
                 // "processing..." লোডিং ইন্ডিকেটর দেখাবে।
-
-
                 serverSide: true,
-
-
                 //  ✔ ডেটা server থেকে আসবে
                 // ✔ Laravel controller থেকে JSON format data পাঠাবে
 
@@ -193,66 +166,29 @@
                 // এখন Laravel controller এ index() মেথড
                 // JSON হিসাবে ডেটা return করবে।
                 columns: [
-                    
-                // { data: 'DT_RowIndex', name: 'DT_RowIndex', orderable: false, searchable: false },
 
-                    
-                    {
-                        data: 'id'
-                    },
-                    {
-                        data: 'name'
-                    },
-                    {
-                        data: 'type'
-                    },
-                    {
-                        data: 'action',
-                        name: 'action',
-                        orderable: false,
-                        searchable: false
-                    },
+                    // { data: 'DT_RowIndex', name: 'DT_RowIndex', orderable: false, searchable: false },
+        { data: 'id'},
+        { data: 'name'},
+        {data: 'type'},
+        { data: 'action', name: 'action', orderable: false, searchable: false },
                     // {data:'action'},
                     // Server থেকে যে JSON আসবে, তার কোন ফিল্ড কোন column-এ দেখাবে।
-
-                ]
-
-
-            });
-
-
-
-
+                     ]});
             $('#model-title').html('Create Category');
             $('#savebtn').html('Save categories');
 
-           
-
-
-
-
-
-
-
-
             // এই functionটি Save বাটনে ক্লিক করলে চালু হবে।
             $('#savebtn').click(function() {
-
-                $('.error-massage').html('');
-                // যাতে আগের error দেখানো থাকলে, এবার নতুন error দেখানোর আগে সেগুলো মুছে ফেলা হয়।
+               $('.error-massage').html('');
+               // যাতে আগের error দেখানো থাকলে, এবার নতুন error দেখানোর আগে সেগুলো মুছে ফেলা হয়।
                 //   console.log('clicked');
-
                 // var name=$('#name').val();
                 // var name=$('#type').val();
 
                 var form = new FormData($('#ajaxform')[0]);
-
                 console.log(form);
-
-
-
                 // console.log(name);
-
                 $.ajax({
                     url: '{{ route('categories.store') }}',
                     method: 'POST',
@@ -267,15 +203,16 @@
                         $('#name').val('');
                         $('#type').val('');
                         $('#category_id').val('');
-// modal hide
+                        // modal hide
 
                         if (response.success) {
                             swal("Success", response.success, "success");
-                           var myModalEl = document.getElementById('exampleModal');
-var modal = bootstrap.Modal.getInstance(myModalEl); // Returns existing instance
-modal.hide();
+                            var myModalEl = document.getElementById('exampleModal');
+                            var modal = bootstrap.Modal.getInstance(
+                            myModalEl); // Returns existing instance
+                            modal.hide();
                         }
-                        
+
                     },
                     error: function(error) {
                         //    console.log("Error");
@@ -292,20 +229,23 @@ modal.hide();
 
                 });
 
-
-
-
-
-
-
-
-
-
-
-
-
-
             });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            
 
             $('body').on('click', '.editButton', function() {
                 // console.log('clicked');
@@ -318,44 +258,25 @@ modal.hide();
                         // console.log(response);
 
 
-         $('#exampleModal').modal('show');
-        $('#model-title').html('Edit  Category');
-        $('#savebtn').html('update categories');
-        $('#name').val(response.name);
-         $('#category_id').val(response.id);
-         $('#type').val(response.type); 
-
-
-
-
-
-
-
+                        $('#exampleModal').modal('show');
+                        $('#model-title').html('Edit  Category');
+                        $('#savebtn').html('update categories');
+                        $('#name').val(response.name);
+                        $('#category_id').val(response.id);
+                        $('#type').val(response.type);
                         // $('#type').val(response.type);
-
-
-var type=capitalizeFirstLetter(response.type);
-
-//jquery append option to select kore add korlam
+                        var type = capitalizeFirstLetter(response.type);
+                        //jquery append option to select kore add korlam
                        // Source - https://stackoverflow.com/a
-// Posted by szpapas, modified by community. See post 'Timeline' for change history
-// Retrieved 2025-12-10, License - CC BY-SA 3.0
+                        // Posted by szpapas, modified by community. See post 'Timeline' for change history
+                        // Retrieved 2025-12-10, License - CC BY-SA 3.0
 
-// $('#type').empty().append('<option value="'+response.type+'">'+type+'</option>').selectmenu('refresh');
+                        // $('#type').empty().append('<option value="'+response.type+'">'+type+'</option>').selectmenu('refresh');
 
-// empty dauya te sob option muche jachilo
+                        // empty dauya te sob option muche jachilo
 
-$('#type').append('<option value="'+response.type+'">'+type+'</option>').selectmenu('refresh');
-
-
-
-
-
-
-
-
-
-
+                        $('#type').append('<option value="' + response.type + '">' + type +
+                            '</option>').selectmenu('refresh');
                     },
                     error: function(error) {
                         console.log(error);
@@ -365,76 +286,34 @@ $('#type').append('<option value="'+response.type+'">'+type+'</option>').selectm
             });
 
 
-$('body').on('click', '.deleteButton', function() {
-    var id = $(this).data('id'); 
-        
-                 $.ajax({
-    url: '/categories/' + id + '/destroy', // match the route
-    method: 'DELETE',
-    success: function(response) {
-        swal("Success", response.success, "success");
-        $table.ajax.reload();
-    },
-    error: function(error) {
-        console.log(error);
-    }
+            $('body').on('click', '.deleteButton', function() {
+                var id = $(this).data('id');
+
+                $.ajax({
+                    url: '/categories/' + id + '/destroy', // match the route
+                    method: 'DELETE',
+                    success: function(response) {
+                        swal("Success", response.success, "success");
+                        $table.ajax.reload();
+                    },
+                    error: function(error) {
+                        console.log(error);
+                    }
                 });
 
- });
+            });
+            $('#add_category').click(function() {
 
+                $('#model-title').html('Create Category');
+                $('#savebtn').html('Save categories');
 
+            });
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-           $('#add_category').click(function(){
-
-              $('#model-title').html('Create Category');
-            $('#savebtn').html('Save categories');
-
-
-           });
-
-
-
-
-
-
-
-
-
-
-
-function capitalizeFirstLetter(string) {
-    return string.charAt(0).toUpperCase() + string.slice(1);
-}
-
-
-
-
+            function capitalizeFirstLetter(string) {
+                return string.charAt(0).toUpperCase() + string.slice(1);
+            }
         });
     </script>
-
-
-
-
-
-
-
-
-
-
 </body>
 
 </html>
