@@ -21,6 +21,7 @@
                   { data: 'id'},
                     { data: 'name'},
                     {data: 'type'},
+                     { data: 'action', name: 'action', orderable: false, searchable: false } // add this
                      ]});
             $('#model-title').html('Create Category');
             $('#savebtn').html('Save categories');

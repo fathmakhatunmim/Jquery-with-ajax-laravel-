@@ -72,7 +72,7 @@
         {{-- table --}}
     </div>
 
- @include('categories.modal1')
+ @include('categories.modal')
     
 @include('categories.script')
 </body>
