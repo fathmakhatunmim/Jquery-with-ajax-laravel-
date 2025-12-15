@@ -38,8 +38,8 @@ class CategoriesController extends Controller
 // type column
 
 
-          return DataTables::of($categories)
-     ->addIndexColumn() 
+     return DataTables::of($categories)
+    ->addIndexColumn() 
     ->addColumn('action', function($row) {
         return '<a href="javascript:void(0)" class=" btn  btn-info btn-sm editButton" data-id="'.$row->id.'">Edit</a> 
 
@@ -51,7 +51,7 @@ class CategoriesController extends Controller
 
 
         }
-         return view('categories.index'); // Blade view
+         return view('categories.create'); // Blade view
     }
 
     /**
@@ -81,6 +81,7 @@ class CategoriesController extends Controller
              'name' => $request->name,
              'type'=>$request->type
            ]);
+           
             return response()->json([
             'success'=>'categories update successfully'
             ],200);//200 update code
@@ -122,6 +123,12 @@ class CategoriesController extends Controller
     {
         // return $id;
         $category=Category::find($id);
+        // মানে ID ভুল / data delete হয়ে গেছে
+        // Laravel কে বলে 👉 404 Not Found error দেখাও
+// 404 Error মানে কী?
+
+// 👉 Server ঠিক আছে
+// 👉 কিন্তু requested data / page পাওয়া যায়নি
         if(!$category){
             abort(404);
         }
